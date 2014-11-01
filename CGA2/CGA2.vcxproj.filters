@@ -24,4 +24,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Gouraud.glsl" />
+    <None Include="Phong_FS.glsl" />
+    <None Include="Phong_VS.glsl" />
+  </ItemGroup>
 </Project>

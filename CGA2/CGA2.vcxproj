@@ -84,6 +84,11 @@
   <ItemGroup>
     <ClCompile Include="part2.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Gouraud.glsl" />
+    <None Include="Phong_FS.glsl" />
+    <None Include="Phong_VS.glsl" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
