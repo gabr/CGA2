@@ -1,3 +1,6 @@
+// Arkadiusz Gabrys qe83mepi
+// Agnieszka Zacher by57zeja
+
 #include "helper.h"  // the shader-handling is implemented here
 #include <math.h>
 
