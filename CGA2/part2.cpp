@@ -251,10 +251,6 @@ void Specialkeyboard(int key, int x, int y)
       shader_mode=3;
       cout << "using Phong Shader\n";
       break;
-
-    case 27: // Escape key
-        exit(0);
-        break;
   }
   
   glutPostRedisplay();
