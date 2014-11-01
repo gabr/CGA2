@@ -6,7 +6,7 @@ using namespace std;
 
 // some global variables:
 
-const double M_PI = 3.14159265359;
+const double PI = 3.14159265359;
 
 bool wireframe_mode = false;
 int number_of_slices = 30;
@@ -25,8 +25,8 @@ GLuint GouraudShader , PhongShader; // the shaders
 // this function creates a shpere including normals
 void drawSphere(float r, int slices, int stacks) {
   
-  float dTheta = 2.0*M_PI/(float)stacks;
-  float dPhi = M_PI/(float)slices;  
+  float dTheta = 2.0*PI/(float)stacks;
+  float dPhi = PI/(float)slices;  
   
   //The Northpole:
   glBegin(GL_TRIANGLE_FAN);
@@ -129,8 +129,8 @@ void onIdle() {
   t+= speed;  // increase the time parameter
   
   // update the x and z position of the Point light P (y remains constant):
-  P_light_position[0] = 45.0*cos(t*M_PI/180.0);
-  P_light_position[2] = 45.0*sin(t*M_PI/180.0);
+  P_light_position[0] = 45.0*cos(t*PI/180.0);
+  P_light_position[2] = 45.0*sin(t*PI/180.0);
   
   // hand the position of P to the shaders:
   glUseProgram(GouraudShader);
