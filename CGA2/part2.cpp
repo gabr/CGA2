@@ -221,6 +221,10 @@ void keyboard(unsigned char key, int x, int y) {
     case '-':
       speed -= 0.01;
       break;
+
+    case 27: // Escape key
+        exit(0);
+        break;
   }
   
   
