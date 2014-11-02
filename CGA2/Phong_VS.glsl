@@ -11,7 +11,7 @@ out vec3 lightPNormal;
 out vec3 camera;
 
 out vec4 vertexColor;
-varying vec4 vertexPos;
+out vec4 vertexPos;
 varying vec3 vertexNormal;
 
 void main() {

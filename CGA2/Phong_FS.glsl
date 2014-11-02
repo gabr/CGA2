@@ -7,7 +7,7 @@ in vec3 lightPNormal;
 in vec3 camera;
 
 in vec4 vertexColor;
-varying vec4 vertexPos;
+in vec4 vertexPos;
 varying vec3 vertexNormal;
 
 void main() {
