@@ -12,6 +12,7 @@ void main() {
 
     vec3 r;
     int s = 20;
+    float dotProductTmp = 0;
     vec3 kSpec = vec3(1.0);
     vec3 cameraVec = normalize(gl_Vertex.xyz - cameraPos);
 
@@ -21,31 +22,40 @@ void main() {
 
     // light D
     // diff
-    lightD_iDiff = gl_Color.xyz * dot(gl_Normal, - D_LightDir);
-
-    if (lightD_iDiff.x < 0) { lightD_iDiff.x = 0; }
-    if (lightD_iDiff.y < 0) { lightD_iDiff.y = 0; }
-    if (lightD_iDiff.z < 0) { lightD_iDiff.z = 0; }
+    dotProductTmp = dot(gl_Normal, - D_LightDir);
+    if (dotProductTmp < 0)
+    {
+        lightD_iDiff = vec3(0.0);
+    }
+    else
+    {
+        lightD_iDiff = gl_Color.xyz * dotProductTmp;
+    }
 
     // light P
     // spec
     vec3 lightPNormal = -normalize(gl_Vertex.xyz - P_LightPos);
     r = reflect(lightPNormal, gl_Normal);
-    float dotProduct = dot(cameraVec, r);
-    if (dotProduct < 0.0)
+    dotProductTmp = dot(cameraVec, r);
+    if (dotProductTmp < 0.0)
     {
         lightP_iSpec = vec3(0.0);
     }
     else
     {
-        lightP_iSpec = kSpec * pow(dotProduct, s);
+        lightP_iSpec = kSpec * pow(dotProductTmp, s);
     }
-    // diff
-    lightP_iDiff = gl_Color.xyz * dot(gl_Normal, lightPNormal);
-    
-    if (lightP_iDiff.x < 0) { lightP_iDiff.x = 0; }
-    if (lightP_iDiff.y < 0) { lightP_iDiff.y = 0; }
-    if (lightP_iDiff.z < 0) { lightP_iDiff.z = 0; }
+
+    // diff    
+    dotProductTmp = dot(gl_Normal, lightPNormal);
+    if (dotProductTmp < 0)
+    {
+        lightP_iDiff = vec3(0.0);
+    }
+    else
+    {
+        lightP_iDiff = gl_Color.xyz * dotProductTmp;
+    }
 
 
     // result
