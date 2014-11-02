@@ -1,4 +1,4 @@
-// Put the names of all group members here 
+// Put the names of all group members here
 // Arkadiusz Gabrys qe83mepi
 // Agnieszka Zacher by57zeja
 
@@ -11,28 +11,46 @@ uniform vec3 cameraPos;
 void main() {
 
     vec3 r;
-    int s = 1;
-    vec3 kSpec = vec3(1);
+    int s = 20;
+    vec3 kSpec = vec3(1.0);
+    vec3 cameraVec = normalize(gl_Vertex.xyz - cameraPos);
 
-    vec3 iDiff;
-    vec3 iSpec;
+    vec3 lightP_iSpec;
+    vec3 lightP_iDiff;
+    vec3 lightD_iDiff;
 
     // light D
-    r = ((2 * dot(D_LightDir, gl_Vertex.xyz)) * gl_Vertex.xyz) - D_LightDir;
-    iDiff = gl_Color.xyz * dot(D_LightDir, gl_Vertex.xyz);
-    iSpec = kSpec * dot(cameraPos, r);
+    // diff
+    lightD_iDiff = gl_Color.xyz * dot(gl_Normal, - D_LightDir);
 
-    vec3 lightD = iDiff + iSpec;
+    if (lightD_iDiff.x < 0) { lightD_iDiff.x = 0; }
+    if (lightD_iDiff.y < 0) { lightD_iDiff.y = 0; }
+    if (lightD_iDiff.z < 0) { lightD_iDiff.z = 0; }
 
     // light P
-    r = ((2 * dot(P_LightPos, gl_Vertex.xyz)) * gl_Vertex.xyz) - P_LightPos;
-    iDiff = gl_Color.xyz * dot(P_LightPos, gl_Vertex.xyz);
-    iSpec = kSpec * dot(cameraPos, r);
+    // spec
+    vec3 lightPNormal = -normalize(gl_Vertex.xyz - P_LightPos);
+    r = reflect(lightPNormal, gl_Normal);
+    float dotProduct = dot(cameraVec, r);
+    if (dotProduct < 0.0)
+    {
+        lightP_iSpec = vec3(0.0);
+    }
+    else
+    {
+        lightP_iSpec = kSpec * pow(dotProduct, s);
+    }
+    // diff
+    lightP_iDiff = gl_Color.xyz * dot(gl_Normal, lightPNormal);
+    
+    if (lightP_iDiff.x < 0) { lightP_iDiff.x = 0; }
+    if (lightP_iDiff.y < 0) { lightP_iDiff.y = 0; }
+    if (lightP_iDiff.z < 0) { lightP_iDiff.z = 0; }
 
-    vec3 lightP = iDiff + iSpec;
 
-    vec3 result = lightD + lightP;
+    // result
+    vec3 result = lightP_iSpec + lightP_iDiff + lightD_iDiff;
     gl_Position = ftransform();
-    gl_FrontColor = vec4(result.x, result.y, result.z, 0.5);
+    gl_FrontColor = vec4(result.x, result.y, result.z, 1.0);
 
 }
