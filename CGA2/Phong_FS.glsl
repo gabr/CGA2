@@ -1,16 +1,17 @@
-// Put the names of all group members here 
+// Put the names of all group members here
 // Arkadiusz Gabrys qe83mepi
 // Agnieszka Zacher by57zeja
 
-in vec3 lightDNormal;
-in vec3 lightPNormal;
-in vec3 camera;
+varying vec3 lightDNormal;
+varying vec3 lightPNormal;
+varying vec3 camera;
 
-in vec4 vertexColor;
-in vec4 vertexPos;
+varying vec4 vertexPos;
 varying vec3 vertexNormal;
 
 void main() {
+
+    vec4 vertexColor = gl_Color;
 
     vec3 r;
     int s = 20;
@@ -47,7 +48,7 @@ void main() {
         lightP_iSpec = kSpec * pow(dotProductTmp, s);
     }
 
-    // diff    
+    // diff
     dotProductTmp = dot(vertexNormal, lightPNormal);
     if (dotProductTmp < 0)
     {
